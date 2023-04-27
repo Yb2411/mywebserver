@@ -23,9 +23,14 @@ jobs:
         cd .
         sed -i "s|yb2411/pythonweb:.+|yb2411/pythonweb:${{ github.sha }}|g" values.yaml
 
-    - name: Commit and push changes
+    - name: Update image tag in deployment repository
       run: |
-        git config --global user.name "GitHub Actions"
-        git config --global user.email "actions@github.com"
-        git add .
-        git commit -m "Update
+        cd deployment-repo
+        # Remplacez 'your-helm-chart-path' par le chemin vers votre chart Helm dans le dépôt de déploiement
+        # Remplacez 'your-image-name' par le nom de votre image dans le fichier values.yaml
+        sed -i 's@pythonweb:[^ ]*@pythonweb:latest@g' your-helm-chart-path/values.yaml
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add your-helm-chart-path/values.yaml
+        git commit -m "Update image tag in deployment repository"
+        git push
