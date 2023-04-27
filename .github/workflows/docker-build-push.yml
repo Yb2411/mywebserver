@@ -32,5 +32,5 @@ jobs:
         context: .
         push: true
         tags: |
-          yb2411/pythonweb:${{ github.sha }}'
-          ghcr.io/yb2411/pythonweb:${{ github.sha }}'
+          yb2411/pythonweb:${{ github.sha }}
+          ghcr.io/yb2411/pythonweb:${{ github.sha }}
