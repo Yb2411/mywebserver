@@ -1,0 +1,31 @@
+name: Update Deployment Repository
+
+on:
+  workflow_run:
+    workflows: ["Docker Build and Push"]
+    types:
+      - completed
+
+jobs:
+  update-deployment:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+    - name: Checkout deployment repository
+      uses: actions/checkout@v2
+      with:
+        repository: yb2411/nginx-hello-world1
+        token: ${{ secrets.DEPLOYMENT_REPO_TOKEN }}
+
+    - name: Update image tag in Helm values
+      run: |
+        cd path/to/helm/chart
+        sed -i "s|your-docker-hub-username/your-image-name:.+|your-docker-hub-username/your-image-name:${{ github.sha }}|g" values.yaml
+
+    - name: Commit and push changes
+      run: |
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "actions@github.com"
+        git add .
+        git commit -m "Update
