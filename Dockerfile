@@ -8,7 +8,7 @@ WORKDIR /app
 COPY . .
 
 # Exposez le port pour que votre application soit accessible
-EXPOSE 8080
+EXPOSE 80
 
 # Lancez l'application
 CMD ["python", "-m", "http.server", "8080"]
