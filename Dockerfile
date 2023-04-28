@@ -11,4 +11,4 @@ COPY . .
 EXPOSE 80
 
 # Lancez l'application
-CMD ["python", "-m", "http.server", "8080"]
+CMD ["python", "-m", "http.server", "80"]
