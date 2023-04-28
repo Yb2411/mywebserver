@@ -25,7 +25,6 @@ jobs:
 
     - name: Update image tag in deployment repository
       run: |
-        cd .
         sed -i 's@pythonweb:[^ ]*@pythonweb:${{ github.sha }}@g' ./values.yaml
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
